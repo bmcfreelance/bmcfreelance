@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"python-envs.defaultEnvManager": "ms-python.python:conda",
+	"python-envs.defaultPackageManager": "ms-python.python:conda"
+}

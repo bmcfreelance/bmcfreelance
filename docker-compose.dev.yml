@@ -1,0 +1,61 @@
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.dev
+    container_name: sveltekit_dev_freelance
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+      # Remove 4983 from host — access via Caddy instead
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/appdb
+      - ORIGIN=http://localhost:5173
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app_network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres_dev_freelance
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: appdb
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d appdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer_dev_freelance
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+
+volumes:
+  postgres_dev_data:
+
+networks:
+  app_network:
+    driver: bridge
