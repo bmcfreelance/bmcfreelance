@@ -1,16 +1,27 @@
 import { relations } from 'drizzle-orm';
-import { pgTable, text, timestamp, boolean, index } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, boolean, index, pgEnum } from 'drizzle-orm/pg-core';
+
+// Define the enum type first
+export const genreEnum = pgEnum('genre', ['male', 'female', 'other']); // adjust values as needed
+export const statusEnum = pgEnum('status', ['active', 'inactive', 'pending']); // adjust values as needed
 
 export const user = pgTable('user', {
 	id: text('id').primaryKey(),
+	genre: genreEnum('genre'), // use the defined enum as a column
 	name: text('name').notNull(),
 	email: text('email').notNull().unique(),
 	emailVerified: boolean('email_verified').default(false).notNull(),
 	image: text('image'),
+	description: text('description'),
+	address: text('address'),
+	phone: text('phone'),
+	city: text('city'),
+	country: text('country'),
+	status: statusEnum('status'),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at')
 		.defaultNow()
-		.$onUpdate(() => /* @__PURE__ */ new Date())
+		.$onUpdate(() => new Date())
 		.notNull()
 });
 
@@ -22,7 +33,8 @@ export const session = pgTable(
 		token: text('token').notNull().unique(),
 		createdAt: timestamp('created_at').defaultNow().notNull(),
 		updatedAt: timestamp('updated_at')
-			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.defaultNow()
+			.$onUpdate(() => new Date())
 			.notNull(),
 		ipAddress: text('ip_address'),
 		userAgent: text('user_agent'),
@@ -51,7 +63,8 @@ export const account = pgTable(
 		password: text('password'),
 		createdAt: timestamp('created_at').defaultNow().notNull(),
 		updatedAt: timestamp('updated_at')
-			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.defaultNow()
+			.$onUpdate(() => new Date())
 			.notNull()
 	},
 	(table) => [index('account_userId_idx').on(table.userId)]
@@ -67,7 +80,7 @@ export const verification = pgTable(
 		createdAt: timestamp('created_at').defaultNow().notNull(),
 		updatedAt: timestamp('updated_at')
 			.defaultNow()
-			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.$onUpdate(() => new Date())
 			.notNull()
 	},
 	(table) => [index('verification_identifier_idx').on(table.identifier)]
