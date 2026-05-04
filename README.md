@@ -149,4 +149,5 @@ docker compose -f docker-compose.prod.yml exec postgres \
 | `POSTGRES_DB`       | `appdb`                                              | Database name             |
 
 In production all sensitive vars come from `.env.prod` (never committed to git).
+
 # bmcfreelance

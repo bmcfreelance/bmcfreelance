@@ -3,7 +3,7 @@ import { pgTable, text, timestamp, boolean, index, pgEnum } from 'drizzle-orm/pg
 
 // Define the enum type first
 export const genreEnum = pgEnum('genre', ['male', 'female', 'other']); // adjust values as needed
-export const statusEnum = pgEnum('status', ['active', 'inactive', 'pending']); // adjust values as needed
+export const userStatusEnum = pgEnum('userStatus', ['active', 'inactive', 'pending']); // adjust values as needed
 
 export const user = pgTable('user', {
 	id: text('id').primaryKey(),
@@ -17,7 +17,7 @@ export const user = pgTable('user', {
 	phone: text('phone'),
 	city: text('city'),
 	country: text('country'),
-	status: statusEnum('status'),
+	userStatus: userStatusEnum('userStatus'),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at')
 		.defaultNow()

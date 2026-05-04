@@ -7,6 +7,7 @@
 	import githubicon from '$lib/assets/github.png';
 	import { untrack } from 'svelte';
 	import { m } from '$lib/paraglide/messages.js';
+	import { Eye, EyeOff } from 'lucide-svelte'; // ✅ added
 
 	const locale = $derived(getLocale());
 	const isFr = $derived(locale.startsWith('fr'));
@@ -72,6 +73,10 @@
 	] as const;
 
 	let mode = $state<'login' | 'register'>('login');
+
+	// ✅ Password visibility toggles
+	let showLoginPassword = $state(false);
+	let showRegisterPassword = $state(false);
 </script>
 
 <div class="flex min-h-screen items-center justify-center bg-zinc-50 px-4 dark:bg-zinc-950">
@@ -138,21 +143,37 @@
 
 				<div>
 					<label
-						for="password"
+						for="login-password"
 						class="mb-1.5 block text-xs font-medium tracking-wider text-zinc-400 uppercase"
 						>{m.password()}</label
 					>
-					<input
-						type="password"
-						name="password"
-						bind:value={$loginForm.password}
-						placeholder="••••••••"
-						class="w-full rounded-lg border px-3 py-2 text-sm transition-colors focus:outline-none
-              {$loginErrors.password
-							? 'border-red-400 focus:border-red-500'
-							: 'border-zinc-200 focus:border-zinc-400 dark:border-zinc-700 dark:focus:border-zinc-500'}
-              bg-white dark:bg-zinc-800"
-					/>
+					<!-- ✅ Wrapper for input + eye icon -->
+					<div class="relative">
+						<input
+							type={showLoginPassword ? 'text' : 'password'}
+							name="password"
+							id="login-password"
+							bind:value={$loginForm.password}
+							placeholder="••••••••"
+							class="w-full rounded-lg border px-3 py-2 pr-10 text-sm transition-colors focus:outline-none
+                {$loginErrors.password
+								? 'border-red-400 focus:border-red-500'
+								: 'border-zinc-200 focus:border-zinc-400 dark:border-zinc-700 dark:focus:border-zinc-500'}
+                bg-white dark:bg-zinc-800"
+						/>
+						<button
+							type="button"
+							onclick={() => (showLoginPassword = !showLoginPassword)}
+							class="absolute top-1/2 right-3 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-400"
+							aria-label={showLoginPassword ? 'Hide password' : 'Show password'}
+						>
+							{#if showLoginPassword}
+								<EyeOff size={16} />
+							{:else}
+								<Eye size={16} />
+							{/if}
+						</button>
+					</div>
 					{#if $loginErrors.password}
 						<p class="mt-1 text-xs text-red-500">{$loginErrors.password?.[0]}</p>
 					{/if}
@@ -208,13 +229,14 @@
 
 				<div>
 					<label
-						for="email"
+						for="register-email"
 						class="mb-1.5 block text-xs font-medium tracking-wider text-zinc-400 uppercase"
 						>{m.Your_email()}</label
 					>
 					<input
 						type="email"
 						name="email"
+						id="register-email"
 						bind:value={$registerForm.email}
 						placeholder="you@example.com"
 						class="w-full rounded-lg border px-3 py-2 text-sm transition-colors focus:outline-none
@@ -230,21 +252,37 @@
 
 				<div>
 					<label
-						for="password"
+						for="register-password"
 						class="mb-1.5 block text-xs font-medium tracking-wider text-zinc-400 uppercase"
 						>{m.password()}</label
 					>
-					<input
-						type="password"
-						name="password"
-						bind:value={$registerForm.password}
-						placeholder="••••••••"
-						class="w-full rounded-lg border px-3 py-2 text-sm transition-colors focus:outline-none
-              {$registerErrors.password
-							? 'border-red-400 focus:border-red-500'
-							: 'border-zinc-200 focus:border-zinc-400 dark:border-zinc-700 dark:focus:border-zinc-500'}
-              bg-white dark:bg-zinc-800"
-					/>
+					<!-- ✅ Wrapper for input + eye icon -->
+					<div class="relative">
+						<input
+							type={showRegisterPassword ? 'text' : 'password'}
+							name="password"
+							id="register-password"
+							bind:value={$registerForm.password}
+							placeholder="••••••••"
+							class="w-full rounded-lg border px-3 py-2 pr-10 text-sm transition-colors focus:outline-none
+                {$registerErrors.password
+								? 'border-red-400 focus:border-red-500'
+								: 'border-zinc-200 focus:border-zinc-400 dark:border-zinc-700 dark:focus:border-zinc-500'}
+                bg-white dark:bg-zinc-800"
+						/>
+						<button
+							type="button"
+							onclick={() => (showRegisterPassword = !showRegisterPassword)}
+							class="absolute top-1/2 right-3 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-400"
+							aria-label={showRegisterPassword ? 'Hide password' : 'Show password'}
+						>
+							{#if showRegisterPassword}
+								<EyeOff size={16} />
+							{:else}
+								<Eye size={16} />
+							{/if}
+						</button>
+					</div>
 					{#if $registerErrors.password}
 						<p class="mt-1 text-xs text-red-500">{$registerErrors.password?.[0]}</p>
 					{/if}

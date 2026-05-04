@@ -22,7 +22,7 @@ transporter.verify((error, success) => {
 });
 export async function sendOTPEmail(to: string, otp: string) {
 	await transporter.sendMail({
-		from: `"Your App" <${env.SMTP_USER}>`,
+		from: `"BMCFREELANCE APP" <${env.SMTP_USER}>`,
 		to,
 		subject: 'Your verification code',
 		html: `

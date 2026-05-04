@@ -25,6 +25,8 @@
 	const navLinks = [
 		{ href: '/', label: () => m.nav_home() },
 		{ href: '/projects', label: () => m.nav_projects() },
+		{ href: '/services', label: () => m.nav_services() },
+		{ href: '/training', label: () => m.nav_training() },
 		{ href: '/about', label: () => m.nav_about() },
 		{ href: '/contact', label: () => m.nav_contact() }
 	];
@@ -40,7 +42,7 @@
 </script>
 
 <footer class="border-t border-border bg-background text-foreground">
-	<div class="mx-auto max-w-6xl px-4 py-12">
+	<div class="mx-auto mb-16 max-w-6xl px-4 py-12 md:mb-0">
 		<!-- Top grid -->
 		<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
 			<!-- Brand + socials -->

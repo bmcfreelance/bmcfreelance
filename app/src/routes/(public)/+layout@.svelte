@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import './../layout.css';
 	import favicon from '$lib/assets/favicon.ico';
 	import Header from '$lib/components/general/Header.svelte';
@@ -9,7 +10,9 @@
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<link rel="icon" href={favicon} />
+</svelte:head>
 <Header />
 {@render children()}
 <WhatsappButton />

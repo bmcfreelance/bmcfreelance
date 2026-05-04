@@ -11,14 +11,25 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
-	import { Sun, Moon, LogOut, User, Settings, Languages } from 'lucide-svelte';
+	import { Sun, Moon, User, LogOut, Languages } from 'lucide-svelte';
 	import type { NavItem } from '$lib/types/nav';
 
-	import HouseIcon from '@lucide/svelte/icons/house';
-	import InboxIcon from '@lucide/svelte/icons/inbox';
-	import CalendarIcon from '@lucide/svelte/icons/calendar';
-	import SearchIcon from '@lucide/svelte/icons/search';
-	import SettingsIcon from '@lucide/svelte/icons/settings';
+	import {
+		House,
+		Settings,
+		Inbox,
+		Calendar,
+		Search,
+		Users,
+		UserKey,
+		UserRoundPlus,
+		VectorSquare,
+		Network,
+		ShieldCog,
+		BriefcaseBusiness,
+		MailCheck,
+		UserStar
+	} from '@lucide/svelte/icons';
 
 	let { children, data } = $props();
 	//console.log('data', data);
@@ -44,18 +55,17 @@
 	}
 
 	const items: NavItem[] = [
-		{ title: 'Accueil', url: '/dashboard', icon: HouseIcon },
-		{ title: 'Permissions', url: '/dashboard/permissions', icon: InboxIcon },
-		{ title: 'Roles', url: '/dashboard/roles', icon: CalendarIcon },
-		{ title: 'Users', url: '/dashboard/users', icon: SearchIcon },
-		{ title: 'Categories', url: '/dashboard/categories', icon: SearchIcon },
-		{ title: 'Projects', url: '/dashboard/projects', icon: SearchIcon },
-		{ title: 'Profile', url: '/dashboard/profile', icon: SettingsIcon },
-		{ title: 'Inbox', url: '/dashboard/inbox', icon: SettingsIcon },
-		{ title: 'Milestones', url: '/dashboard/milestones', icon: SettingsIcon },
-		{ title: 'Ticketings', url: '/dashboard/ticketings', icon: SettingsIcon },
-		{ title: 'Campaigns', url: '/dashboard/campaigns', icon: SettingsIcon },
-		{ title: 'Settings', url: '/dashboard/settings', icon: SettingsIcon }
+		{ title: 'Accueil', url: '/dashboard', icon: House },
+		{ title: 'Roles', url: '/dashboard/roles', icon: UserRoundPlus },
+		{ title: 'Users', url: '/dashboard/users', icon: Users },
+		{ title: 'Categories', url: '/dashboard/categories', icon: VectorSquare },
+		{ title: 'Projects', url: '/dashboard/projects', icon: Network },
+		{ title: 'Profile', url: '/dashboard/profile', icon: UserStar },
+		{ title: 'Commercial', url: '/dashboard/commercial', icon: Inbox },
+		{ title: 'Works', url: '/dashboard/works', icon: BriefcaseBusiness },
+		{ title: 'Support', url: '/dashboard/support', icon: MailCheck },
+		{ title: 'Campaigns', url: '/dashboard/campaigns', icon: ShieldCog },
+		{ title: 'Settings', url: '/dashboard/settings', icon: Settings }
 	];
 
 	const currentPage = $derived(page.url.pathname.split('/').filter(Boolean).at(-1) ?? 'Dashboard');

@@ -3,6 +3,8 @@
 	"hello_world": "Hello, {name} from en!",
 	"nav_home": "Home",
 	"nav_projects": "Projects",
+	"nav_services": "Services",
+	"nav_training": "Training",
 	"nav_about": "About",
 	"nav_contact": "Contact",
 	"Chat_with_us": "let's chat",

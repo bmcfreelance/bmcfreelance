@@ -30,8 +30,10 @@
 	const navLinks = [
 		{ href: '/', label: () => m.nav_home() },
 		{ href: '/projects', label: () => m.nav_projects() },
-		{ href: '/about', label: () => m.nav_about() },
-		{ href: '/contact', label: () => m.nav_contact() }
+		{ href: '/services', label: () => m.nav_services() },
+		{ href: '/training', label: () => m.nav_training() },
+		{ href: '/contact', label: () => m.nav_contact() },
+		{ href: '/about', label: () => m.nav_about() }
 	];
 
 	// @ts-ignore
